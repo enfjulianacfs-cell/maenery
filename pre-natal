@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia da Gestante - CF Carlos Nery</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Outfit for warm, readable typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff5f5',
+                            100: '#fed7d7',
+                            500: '#e53e3e',
+                            600: '#dd6b20',
+                            700: '#9b2c2c',
+                        },
+                        maternal: {
+                            rose: '#E86A82',
+                            purple: '#6B46C1',
+                            warmBg: '#FAF5FF',
+                            gold: '#D69E2E',
+                            teal: '#319795',
+                            darkPurple: '#2C124D'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAF6F0;
+            color: #2D3748;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+        .gradient-header {
+            background: linear-gradient(135deg, #4A154B 0%, #6B21A8 50%, #9D174D 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(107, 33, 168, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+        .pulse-alert {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .92; transform: scale(1.02); }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F1F1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D69E2E;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-maternal-rose selection:text-white">
+
+    <!-- TOP NOTIFICATION BANNER -->
+    <div class="bg-amber-600 text-white px-4 py-2 text-xs sm:text-sm font-medium text-center flex items-center justify-center gap-2 shadow-sm">
+        <i class="fa-solid fa-heart-pulse text-amber-200"> {</i>
+        <span>Acolhimento humanizado para você e seu bebê na <strong>Clínica da Família Carlos Nery</strong></span>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="gradient-header text-white sticky top-0 z-40 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-full bg-amber-400 text-purple-950 flex items-center justify-center font-bold text-xl shadow-inner border-2 border-white">
+                    <i class="fa-solid fa-person-breastfeeding"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-tight leading-none font-heading">Mãe Nery</h1>
+                    <p class="text-xs text-purple-200 mt-0.5">CF Carlos Nery • Irajá / Cordovil (SUS)</p>
+                </div>
+            </div>
+
+            <!-- Navigation Bar for Large Screens & Mobile Menu Toggle -->
+            <div class="flex items-center gap-2">
+                <button onclick="toggleAudioGuide('Boas-vindas ao aplicativo Mãe Nery da Clínica da Família Carlos Nery. Aqui você encontra tudo sobre suas vacinas, exames, direitos e saúde no pré-natal.')" class="bg-white/20 hover:bg-white/30 text-white p-2.5 rounded-full transition flex items-center gap-1.5 text-xs font-semibold" title="Ouvir texto da tela">
+                    <i class="fa-solid fa-volume-high text-amber-300"></i>
+                    <span class="hidden md:inline">Ouvir</span>
+                </button>
+
+                <button onclick="switchTab('emergencia')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 animate-bounce shadow">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>Sinais de Alerta</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- CATEGORY NAVIGATION TABS -->
+        <nav class="bg-purple-950/60 backdrop-blur-md border-t border-purple-800/50 overflow-x-auto no-scrollbar">
+            <div class="max-w-6xl mx-auto flex space-x-1 px-2 py-1 text-xs sm:text-sm font-medium whitespace-nowrap">
+                <button onclick="switchTab('inicio')" id="tab-inicio" class="tab-btn active px-3 py-2 rounded-lg text-purple-100 hover:bg-purple-800/50 transition flex items-center gap-2">
+                    <i class="fa-solid fa-house"></i> Início
+                </button>
+                <button onclick="switchTab('calculadora')" id="tab-calculadora" class="tab-btn px-3 py-2 rounded-lg text-purple-200 hover:bg-purple-800/50 transition flex items-center gap-2">
+                    <i class="fa-solid fa-calculator"></i> Calculadora IG
+                </button>
+                <button onclick="switchTab('vacinas')" id="tab-vacinas" class="tab-btn px-3 py-2 rounded-lg text-purple-200 hover:bg-purple-800/50 transition flex items-center gap-2">
+                    <i class="fa-solid fa-syringe text-emerald-400"></i> Vacinas (VSR)
+                </button>
+                <button onclick="switchTab('exames')" id="tab-exames" class="tab-btn px-3 py-2 rounded-lg text-purple-200 hover:bg-purple-800/50 transition flex items-center gap-2">
+                    <i class="fa-solid fa-vial-virus text-pink-300"></i> Exames & USG
+                </button>
+                <button onclick="switchTab('cuidados')" id="tab-cuidados" class="tab-btn px-3 py-2 rounded-lg text-purple-200 hover:bg-purple-800/50 transition flex items-center gap-2">
+                    <i class="fa-solid fa-pills text-amber-300"></i> Suplementos & Mitos
+                </button>
+                <button onclick="switchTab('amamentacao')" id="tab-amamentacao" class="tab-btn px-3 py-2 rounded-lg text-purple-200 hover:bg-purple-800/50 transition flex items-center gap-2">
+                    <i class="fa-solid fa-baby"></i> Amamentação
+                </button>
+                <button onclick="switchTab('direitos')" id="tab-direitos" class="tab-btn px-3 py-2 rounded-lg text-purple-200 hover:bg-purple-800/50 transition flex items-center gap-2">
+                    <i class="fa-solid fa-scale-balanced text-sky-300"></i> Direitos & Equidade
+                </button>
+                <button onclick="switchTab('assistente')" id="tab-assistente" class="tab-btn px-3 py-2 rounded-lg text-purple-200 hover:bg-purple-800/50 transition flex items-center gap-2 bg-gradient-to-r from-amber-500/30 to-pink-500/30 font-semibold border border-amber-400/30">
+                    <i class="fa-solid fa-comment-dots text-amber-300"></i> Enfermeira Nery (IA)
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- ================= SECTION 1: INÍCIO (HOME) ================= -->
+        <section id="sec-inicio" class="tab-content space-y-6">
+            <!-- Hero banner with equity and representation focus -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-purple-900 via-purple-800 to-rose-900 text-white p-6 sm:p-8 card-shadow">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
+                        SUS • Saúde da Mulher Negra e Parda
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight font-heading leading-tight">
+                        Cuidado, respeito e acolhimento na sua gestação!
+                    </h2>
+                    <p class="mt-3 text-purple-100 text-sm sm:text-base leading-relaxed">
+                        Seja bem-vinda ao seu guia oficial de acompanhamento da **Clínica da Família Carlos Nery**. Construído para garantir seus direitos, combater o racismo institucional na saúde e assegurar que você e seu bebê tenham uma gestação segura e humanizada.
+                    </p>
+
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <button onclick="switchTab('calculadora')" class="bg-amber-400 hover:bg-amber-500 text-purple-950 px-5 py-2.5 rounded-xl font-bold text-sm transition flex items-center gap-2 shadow-md">
+                            <i class="fa-solid fa-calendar-check"></i> Calcular minha IG e Parto
+                        </button>
+                        <button onclick="switchTab('vacinas')" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center gap-2">
+                            <i class="fa-solid fa-syringe text-emerald-300"></i> Ver Vacina VSR e outras
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Abstract Decorative Shapes -->
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-rose-500/20 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="absolute right-20 top-0 w-48 h-48 bg-amber-500/10 rounded-full blur-xl pointer-events-none"></div>
+            </div>
+
+            <!-- Quick Access Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div onclick="switchTab('vacinas')" class="bg-white p-4 rounded-2xl border border-purple-100 card-shadow hover:border-emerald-300 transition cursor-pointer group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-shield-virus"></i>
+                    </div>
+                    <span class="text-xs text-emerald-800 font-bold uppercase tracking-wider block">Proteção</span>
+                    <h3 class="font-bold text-gray-800 text-base group-hover:text-emerald-700 transition">Vacinas & VSR</h3>
+                    <p class="text-xs text-gray-500 mt-1">Inclui a nova vacina VSR contra bronquiolite no bebê.</p>
+                </div>
+
+                <div onclick="switchTab('exames')" class="bg-white p-4 rounded-2xl border border-purple-100 card-shadow hover:border-pink-300 transition cursor-pointer group">
+                    <div class="w-12 h-12 rounded-xl bg-pink-100 text-pink-700 flex items-center justify-center font-bold text-xl mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-notes-medical"></i>
+                    </div>
+                    <span class="text-xs text-pink-800 font-bold uppercase tracking-wider block">Calendário</span>
+                    <h3 class="font-bold text-gray-800 text-base group-hover:text-pink-700 transition">Exames & USG</h3>
+                    <p class="text-xs text-gray-500 mt-1">Rotina de exames do 1º ao 3º trimestre.</p>
+                </div>
+
+                <div onclick="switchTab('emergencia')" class="bg-white p-4 rounded-2xl border border-rose-100 card-shadow hover:border-rose-300 transition cursor-pointer group">
+                    <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xl mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-heart-circle-bolt"></i>
+                    </div>
+                    <span class="text-xs text-rose-800 font-bold uppercase tracking-wider block">Atenção</span>
+                    <h3 class="font-bold text-gray-800 text-base group-hover:text-rose-700 transition">Pré-Eclâmpsia</h3>
+                    <p class="text-xs text-gray-500 mt-1">Sinais de alerta da pressão e inchaço repentino.</p>
+                </div>
+
+                <div onclick="switchTab('direitos')" class="bg-white p-4 rounded-2xl border border-purple-100 card-shadow hover:border-sky-300 transition cursor-pointer group">
+                    <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-xl mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                    </div>
+                    <span class="text-xs text-sky-800 font-bold uppercase tracking-wider block">Seus Direitos</span>
+                    <h3 class="font-bold text-gray-800 text-base group-hover:text-sky-700 transition">Bolsa Família & Parto</h3>
+                    <p class="text-xs text-gray-500 mt-1">Lei do acompanhante, riocard e parto sem dor.</p>
+                </div>
+            </div>
+
+            <!-- Focus Card: Racial Equity & Anemia/Sickle Cell Awareness -->
+            <div class="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-rose-500/10 border-2 border-amber-300/60 rounded-3xl p-6 relative">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl font-bold flex-shrink-0 shadow-md">
+                        <i class="fa-solid fa-dna"></i>
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-bold text-amber-950 font-heading">
+                            Atenção Especial à Anemia Falciforme e Saúde da Gestante Negra
+                        </h3>
+                        <p class="text-sm text-gray-700 mt-1 leading-relaxed">
+                            No Brasil, a traço e a doença falciforme afetam majoritariamente a população negra e parda. Por isso, no pré-natal da <strong>CF Carlos Nery</strong>, fazemos o teste de **Eletroforese de Hemoglobina** e prescrevemos suplementação gratuita de **Sulfato Ferroso** e **Cálcio** para prevenir complicações e hipertensão gestacional.
+                        </p>
+                    </div>
+                    <button onclick="switchTab('cuidados')" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap shadow">
+                        Ver Suplementos
+                    </button>
+                </div>
+            </div>
+
+            <!-- Trimestres resumo -->
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-purple-950 font-heading flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-week text-purple-600"></i> Etapas da Sua Gestação
+                    </h3>
+                    <span class="text-xs text-gray-500">Até 42 semanas de gestação</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100">
+                        <span class="inline-block px-2.5 py-0.5 bg-purple-200 text-purple-900 rounded-full text-xs font-bold mb-2">1º Trimestre</span>
+                        <h4 class="font-bold text-gray-800 text-sm">1 a 13 Semanas (1º ao 3º Mês)</h4>
+                        <p class="text-xs text-gray-600 mt-1">Foco: Início do pré-natal, testes rápidos (HIV/Sífilis/Hepatites), Ácido Fólico e Ultrassom de viabilidade.</p>
+                    </div>
+
+                    <div class="bg-pink-50 p-4 rounded-2xl border border-pink-100">
+                        <span class="inline-block px-2.5 py-0.5 bg-pink-200 text-pink-900 rounded-full text-xs font-bold mb-2">2º Trimestre</span>
+                        <h4 class="font-bold text-gray-800 text-sm">14 a 26 Semanas (4º ao 6º Mês)</h4>
+                        <p class="text-xs text-gray-600 mt-1">Foco: USG Morfológica, vacinação (dTpa, VSR a partir do final), teste de glicose (TOTG) e acompanhamento do crescimento.</p>
+                    </div>
+
+                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100">
+                        <span class="inline-block px-2.5 py-0.5 bg-amber-200 text-amber-900 rounded-full text-xs font-bold mb-2">3º Trimestre</span>
+                        <h4 class="font-bold text-gray-800 text-sm">27 a 40+ Semanas (7º ao 9º Mês)</h4>
+                        <p class="text-xs text-gray-600 mt-1">Foco: Repetição de sorologias, cultura de Streptococcus B (35-37 sem), plano de parto e sinais de alerta do trabalho de parto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2: CALCULADORA DE IG ================= -->
+        <section id="sec-calculadora" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-purple-100">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-purple-950 font-heading">Calculadora da Idade Gestacional & Data Provável do Parto (DPP)</h2>
+                        <p class="text-xs text-gray-500">Informe a data da sua última menstruação (DUM) para saber em que semana você está.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                    <div class="space-y-4 bg-purple-50/60 p-5 rounded-2xl border border-purple-100">
+                        <div>
+                            <label class="block text-xs font-bold text-purple-900 mb-1 uppercase tracking-wider">
+                                Data da Última Menstruação (DUM):
+                            </label>
+                            <input type="date" id="input-dum" class="w-full bg-white border border-purple-300 rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-600 font-semibold shadow-sm">
+                        </div>
+
+                        <button onclick="calcularGestacao()" class="w-full bg-purple-700 hover:bg-purple-800 text-white font-bold py-3 px-4 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-sparkles text-amber-300"></i> Calcular Semanas e DPP
+                        </button>
+
+                        <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-start gap-2">
+                            <i class="fa-solid fa-circle-info text-amber-600 mt-0.5"></i>
+                            <span>Não lembra da DUM exata? Use a data informada no seu primeiro Ultrassom Obstétrico e informe à sua enfermeira no pré-natal da CF Carlos Nery.</span>
+                        </div>
+                    </div>
+
+                    <!-- Result Box -->
+                    <div id="resultado-ig" class="bg-gradient-to-br from-purple-900 to-rose-900 text-white p-6 rounded-2xl card-shadow min-h-[220px] flex flex-col justify-center text-center">
+                        <i class="fa-solid fa-baby-carriage text-4xl text-amber-300 mb-3 mx-auto opacity-80"></i>
+                        <p class="text-purple-200 text-sm">Insira a data ao lado e clique em calcular para visualizar suas semanas atuais, trimestre e previsão do parto.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Ilustrativo do Desenvolvimento -->
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-gray-100">
+                <h3 class="text-lg font-bold text-purple-950 font-heading mb-3">Tabela Prática: Mês x Semanas de Gestação</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <thead>
+                            <tr class="bg-purple-100 text-purple-900 font-bold border-b border-purple-200">
+                                <th class="p-3 rounded-tl-xl">Trimestre</th>
+                                <th class="p-3">Mês Gestacional</th>
+                                <th class="p-3 rounded-tr-xl">Semanas Correspondentes</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-purple-50/50">
+                                <td class="p-3 font-semibold text-purple-800" rowspan="3">1º Trimestre</td>
+                                <td class="p-3">1º Mês</td>
+                                <td class="p-3 font-medium">1 a 4 semanas</td>
+                            </tr>
+                            <tr class="hover:bg-purple-50/50">
+                                <td class="p-3">2º Mês</td>
+                                <td class="p-3 font-medium">5 a 8 semanas</td>
+                            </tr>
+                            <tr class="hover:bg-purple-50/50">
+                                <td class="p-3">3º Mês</td>
+                                <td class="p-3 font-medium">9 a 13 semanas</td>
+                            </tr>
+
+                            <tr class="hover:bg-pink-50/50 bg-pink-50/20">
+                                <td class="p-3 font-semibold text-pink-800" rowspan="3">2º Trimestre</td>
+                                <td class="p-3">4º Mês</td>
+                                <td class="p-3 font-medium">14 a 17 semanas</td>
+                            </tr>
+                            <tr class="hover:bg-pink-50/50 bg-pink-50/20">
+                                <td class="p-3">5º Mês</td>
+                                <td class="p-3 font-medium">18 a 21 semanas</td>
+                            </tr>
+                            <tr class="hover:bg-pink-50/50 bg-pink-50/20">
+                                <td class="p-3">6º Mês</td>
+                                <td class="p-3 font-medium">22 a 26 semanas</td>
+                            </tr>
+
+                            <tr class="hover:bg-amber-50/50">
+                                <td class="p-3 font-semibold text-amber-800" rowspan="3">3º Trimestre</td>
+                                <td class="p-3">7º Mês</td>
+                                <td class="p-3 font-medium">27 a 30 semanas</td>
+                            </tr>
+                            <tr class="hover:bg-amber-50/50">
+                                <td class="p-3">8º Mês</td>
+                                <td class="p-3 font-medium">31 a 35 semanas</td>
+                            </tr>
+                            <tr class="hover:bg-amber-50/50">
+                                <td class="p-3">9º Mês</td>
+                                <td class="p-3 font-medium">36 a 40+ semanas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3: VACINAS (INCLUINDO VSR) ================= -->
+        <section id="sec-vacinas" class="tab-content hidden space-y-6">
+            <div class="bg-gradient-to-r from-emerald-900 to-teal-900 text-white rounded-3xl p-6 sm:p-8 card-shadow">
+                <div class="max-w-2xl">
+                    <span class="bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-2">
+                        Calendário Nacional de Imunização no SUS
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-bold font-heading">Vacinas Essenciais para a Gestante</h2>
+                    <p class="text-emerald-100 text-sm mt-2 leading-relaxed">
+                        As vacinas protegem a mãe e transmitem anticorpos vitais através da placenta para proteger o bebê nos primeiros meses de vida. Todas as vacinas estão disponíveis gratuitamente na **CF Carlos Nery**.
+                    </p>
+                </div>
+            </div>
+
+            <!-- VSR Highlight Card (Special Requested Item) -->
+            <div class="bg-gradient-to-r from-teal-500/15 via-emerald-500/15 to-sky-500/15 border-2 border-emerald-500/80 rounded-3xl p-6 card-shadow relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-emerald-600 text-white font-extrabold text-[10px] sm:text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-widest shadow">
+                    ★ Atualização Obrigatória de Proteção
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-start gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl font-bold flex-shrink-0 shadow-lg mt-1">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-xl font-extrabold text-emerald-950 font-heading">Vacina VSR (Vírus Sincicial Respiratório)</h3>
+                            <span class="bg-emerald-200 text-emerald-900 text-xs font-bold px-2.5 py-0.5 rounded-full">Proteção Neonatal</span>
+                        </div>
+                        <p class="text-sm text-gray-800 leading-relaxed font-medium">
+                            <strong>O que protege:</strong> Protege o recém-nascido contra a **Bronquiolite** e pneumonias graves causadas pelo Vírus Sincicial Respiratório (VSR), uma das maiores causas de internação em UTI neonatal.
+                        </p>
+                        <div class="bg-white/80 p-3 rounded-xl border border-emerald-200 text-xs text-emerald-900 flex flex-wrap items-center justify-between gap-2">
+                            <span><i class="fa-solid fa-clock text-emerald-600 font-bold"></i> <strong>Quando tomar:</strong> Aplicada na gestante no 2º ou 3º trimestre (idealmente entre a 24ª e 36ª semana).</span>
+                            <span class="font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded">Dose única</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complete Vaccine Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- dTpa -->
+                <div class="bg-white p-5 rounded-2xl border border-gray-100 card-shadow flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-lg flex-shrink-0">
+                        <i class="fa-solid fa-syringe"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-base">Vacina dTpa (Tríplice Bacteriana)</h4>
+                        <p class="text-xs text-purple-800 font-semibold mb-1">Protege contra: Tétano, Difteria e Coqueluche</p>
+                        <p class="text-xs text-gray-600">Essencial em <strong>TODA gestação</strong> a partir da 20ª semana. Garante a transferência de anticorpos contra a coqueluche para o bebê antes do nascimento.</p>
+                    </div>
+                </div>
+
+                <!-- Dupla Adulto (dT) -->
+                <div class="bg-white p-5 rounded-2xl border border-gray-100 card-shadow flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-lg flex-shrink-0">
+                        <i class="fa-solid fa-vial"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-base">Vacina Dupla Adulto (dT)</h4>
+                        <p class="text-xs text-sky-800 font-semibold mb-1">Protege contra: Tétano e Difteria</p>
+                        <p class="text-xs text-gray-600">Para gestantes com esquema vacinal incompleto ou com mais de 5 anos da última dose contra o tétano.</p>
+                    </div>
+                </div>
+
+                <!-- Influenza (Gripe) -->
+                <div class="bg-white p-5 rounded-2xl border border-gray-100 card-shadow flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-lg flex-shrink-0">
+                        <i class="fa-solid fa-virus"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-base">Vacina da Influenza (Gripe)</h4>
+                        <p class="text-xs text-amber-800 font-semibold mb-1">Protege contra: Complicações da Gripe</p>
+                        <p class="text-xs text-gray-600">Pode ser aplicada em <strong>qualquer fase da gestação</strong>. Reduz em até 50% o risco de infecções respiratórias graves na mãe e no recém-nascido.</p>
+                    </div>
+                </div>
+
+                <!-- Hepatite B -->
+                <div class="bg-white p-5 rounded-2xl border border-gray-100 card-shadow flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-lg flex-shrink-0">
+                        <i class="fa-solid fa-shield-cat"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-base">Vacina Hepatite B</h4>
+                        <p class="text-xs text-rose-800 font-semibold mb-1">Protege contra: Vírus da Hepatite B</p>
+                        <p class="text-xs text-gray-600">Geralmente em 3 doses (a depender do histórico vacinal). Previne a transmissão vertical da hepatite da mãe para o bebê.</p>
+                    </div>
+                </div>
+
+                <!-- COVID-19 -->
+                <div class="bg-white p-5 rounded-2xl border border-gray-100 card-shadow flex gap-4 items-start md:col-span-2">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg flex-shrink-0">
+                        <i class="fa-solid fa-head-side-cough"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-base">Vacina COVID-19 (Bivalente / Atualizada)</h4>
+                        <p class="text-xs text-emerald-800 font-semibold mb-1">Protege contra: Complicações do Coronavírus</p>
+                        <p class="text-xs text-gray-600">Gestantes são grupo prioritário. A vacinação reduz internações por Síndrome Respiratória Aguda Grave (SRAG).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 4: EXAMES E ULTRASSOM ================= -->
+        <section id="sec-exames" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-pink-100">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <h2 class="text-xl font-bold text-purple-950 font-heading flex items-center gap-2">
+                        <i class="fa-solid fa-vials text-pink-600"></i> Rotina de Exames no Pré-Natal da CF Carlos Nery
+                    </h2>
+                    <span class="bg-pink-100 text-pink-800 text-xs font-bold px-3 py-1 rounded-full">SUS Gratuito</span>
+                </div>
+
+                <!-- Tabs for 1st, 2nd, 3rd Trimestre Exams -->
+                <div class="space-y-4">
+                    <!-- 1 TRIMESTRE EXAMS -->
+                    <div class="bg-purple-50 p-5 rounded-2xl border border-purple-200">
+                        <h3 class="font-bold text-purple-900 text-base mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-purple-700 text-white text-xs flex items-center justify-center font-bold">1</span>
+                            1º Trimestre (1 a 13 Semanas)
+                        </h3>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-700 font-medium">
+                            <li class="bg-white p-2.5 rounded-xl border border-purple-100 flex items-center gap-2">
+                                <i class="fa-solid fa-vial text-purple-600"></i> Testes Rápidos: Sífilis, HIV, Hepatite B e C
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-purple-100 flex items-center gap-2">
+                                <i class="fa-solid fa-droplet text-rose-600"></i> Hemograma Completo & Tipagem Sanguínea (ABO/Rh)
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-purple-100 flex items-center gap-2">
+                                <i class="fa-solid fa-bacteria text-amber-600"></i> Sorologias: Toxoplasmose (IgM/IgG) & VDRL
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-purple-100 flex items-center gap-2">
+                                <i class="fa-solid fa-cube text-sky-600"></i> Glicemia de Jejum & Urina I + Urocultura
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-purple-100 flex items-center gap-2">
+                                <i class="fa-solid fa-microscope text-emerald-600"></i> Eletroforese de Hemoglobina (Triagem Anemia Falciforme)
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-purple-100 flex items-center gap-2">
+                                <i class="fa-solid fa-notes-medical text-pink-600"></i> Colpocitologia Oncótica (Papanicolau) & Fezes (s/n)
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 2 TRIMESTRE EXAMS -->
+                    <div class="bg-pink-50 p-5 rounded-2xl border border-pink-200">
+                        <h3 class="font-bold text-pink-900 text-base mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-pink-600 text-white text-xs flex items-center justify-center font-bold">2</span>
+                            2º Trimestre (14 a 26 Semanas)
+                        </h3>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-700 font-medium">
+                            <li class="bg-white p-2.5 rounded-xl border border-pink-100 flex items-center gap-2">
+                                <i class="fa-solid fa-cube text-purple-600"></i> TOTG 75g (Teste Oral de Tolerância à Glicose - a partir da 24ª sem)
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-pink-100 flex items-center gap-2">
+                                <i class="fa-solid fa-vial text-pink-600"></i> Repetição do Hemograma Completo
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-pink-100 flex items-center gap-2">
+                                <i class="fa-solid fa-toilet text-sky-600"></i> Urina I + Urocultura com Antibiograma
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-pink-100 flex items-center gap-2">
+                                <i class="fa-solid fa-shield text-amber-600"></i> Coombs Indireto (se fator Rh negativo) & Toxoplasmose (se IgG-)
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 3 TRIMESTRE EXAMS -->
+                    <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200">
+                        <h3 class="font-bold text-amber-900 text-base mb-2 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-amber-600 text-white text-xs flex items-center justify-center font-bold">3</span>
+                            3º Trimestre (27 a 40+ Semanas)
+                        </h3>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-700 font-medium">
+                            <li class="bg-white p-2.5 rounded-xl border border-amber-100 flex items-center gap-2">
+                                <i class="fa-solid fa-vial-virus text-rose-600"></i> Repetição Testes Rápidos (Sífilis e HIV) & VDRL
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-amber-100 flex items-center gap-2">
+                                <i class="fa-solid fa-bacterium text-emerald-600"></i> <strong>Cultura de Streptococcus do Grupo B (35 a 37 semanas)</strong>: anal e vaginal para prevenir infecção e sepse neonatal no parto
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-amber-100 flex items-center gap-2">
+                                <i class="fa-solid fa-droplet text-purple-600"></i> Hemograma, Glicemia de Jejum & Urina I
+                            </li>
+                            <li class="bg-white p-2.5 rounded-xl border border-amber-100 flex items-center gap-2">
+                                <i class="fa-solid fa-dna text-amber-600"></i> Sorologias Finais (Hepatite B e Toxoplasmose)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ULTRASSOM (USG) CARD -->
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-gray-100">
+                <h3 class="text-lg font-bold text-purple-950 font-heading mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-wave-square text-purple-600"></i> Ultrassom (USG) no Acompanhamento do Pré-Natal
+                </h3>
+                <p class="text-xs text-gray-600 mb-4">
+                    A Organização Mundial da Saúde (OMS) e o SUS preconizam **pelo menos 3 exames de ultrassom** ao longo da gestação:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-purple-50 p-4 rounded-2xl border border-purple-200">
+                        <span class="text-xs font-bold text-purple-800 uppercase tracking-wider block">1º Ultrassom</span>
+                        <h4 class="font-bold text-purple-950 text-sm mt-0.5">11 a 14 Semanas</h4>
+                        <p class="text-xs text-gray-600 mt-1">
+                            • Confirmação da Viabilidade e Datação Precisa (Idade Gestacional).<br>
+                            • Translucência Nucal e Corionicidade (se forem gêmeos).
+                        </p>
+                    </div>
+
+                    <div class="bg-pink-50 p-4 rounded-2xl border border-pink-200">
+                        <span class="text-xs font-bold text-pink-800 uppercase tracking-wider block">2º Ultrassom</span>
+                        <h4 class="font-bold text-pink-950 text-sm mt-0.5">20 a 24 Semanas (Morfológica)</h4>
+                        <p class="text-xs text-gray-600 mt-1">
+                            • **Morfológica Fetal**: Avaliação detalhada da anatomia do bebê (coração, cérebro, órgãos).<br>
+                            • Medida do colo do útero e localização da placenta.
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+                        <span class="text-xs font-bold text-amber-800 uppercase tracking-wider block">3º Ultrassom</span>
+                        <h4 class="font-bold text-amber-950 text-sm mt-0.5">32 a 36 Semanas</h4>
+                        <p class="text-xs text-gray-600 mt-1">
+                            • Acompanhamento do Crescimento Fetal e Peso do bebê.<br>
+                            • Avaliação do volume do Líquido Amniótico e maturação da Placenta.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 5: SUPLEMENTOS & MITOS DA GESTAÇÃO ================= -->
+        <section id="sec-cuidados" class="tab-content hidden space-y-6">
+            <!-- SUPLEMENTAÇÕES DA GESTANTE -->
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-amber-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-purple-950 font-heading flex items-center gap-2">
+                        <i class="fa-solid fa-pills text-amber-500"></i> Suplementações da Gestante no SUS
+                    </h2>
+                    <span class="text-xs bg-amber-100 text-amber-900 font-bold px-2.5 py-1 rounded-full">Fornecidos Grátis na Farmácia da CF Carlos Nery</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Sulfato Ferroso -->
+                    <div class="bg-rose-50/70 p-5 rounded-2xl border border-rose-200 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-prescription-bottle-medical"></i>
+                        </div>
+                        <h3 class="font-bold text-rose-950 text-base">Sulfato Ferroso</h3>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            <strong>Para que serve:</strong> Prevenção e tratamento da **anemia ferropriva**. Vital para a mãe e para a chegada de oxigênio ao bebê.
+                        </p>
+                        <span class="text-[11px] text-rose-800 font-semibold block bg-white p-2 rounded-lg border border-rose-100">
+                            💡 Dica: Tome com suco cítrico (laranja/limão) para absorver melhor. Evite tomar com leite ou café.
+                        </span>
+                    </div>
+
+                    <!-- Ácido Fólico -->
+                    <div class="bg-emerald-50/70 p-5 rounded-2xl border border-emerald-200 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-tablets"></i>
+                        </div>
+                        <h3 class="font-bold text-emerald-950 text-base">Ácido Fólico</h3>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            <strong>Para que serve:</strong> Prevenção de defeitos congênitos no **tubo neural** do feto (espinha bífida, anencefalia).
+                        </p>
+                        <span class="text-[11px] text-emerald-800 font-semibold block bg-white p-2 rounded-lg border border-emerald-100">
+                            💡 Dica: Ideal começar antes de engravidar ou assim que descobrir a gestação no 1º trimestre.
+                        </span>
+                    </div>
+
+                    <!-- Carbonato de Cálcio -->
+                    <div class="bg-amber-50/70 p-5 rounded-2xl border border-amber-200 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-bone"></i>
+                        </div>
+                        <h3 class="font-bold text-amber-950 text-base">Carbonato de Cálcio</h3>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            <strong>Para que serve:</strong> Fundamental para a prevenção de **Pré-Eclâmpsia** e síndromes hipertensivas gestacionais.
+                        </p>
+                        <span class="text-[11px] text-amber-800 font-semibold block bg-white p-2 rounded-lg border border-amber-100">
+                            💡 Dica: Prescrito especialmente para gestantes com baixa ingestão de cálcio ou risco vascular.
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DESMITIFICANDO DÚVIDAS E ANATOMIA -->
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-gray-100 space-y-6">
+                <h2 class="text-xl font-bold text-purple-950 font-heading">
+                    Esclarecendo Mitos & Entendendo Seu Corpo
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Cordão no Pescoço -->
+                    <div class="bg-purple-50 p-5 rounded-2xl border border-purple-200 space-y-2">
+                        <div class="w-8 h-8 rounded-full bg-purple-700 text-white flex items-center justify-center text-xs font-bold">1</div>
+                        <h3 class="font-bold text-purple-950 text-sm">Cordão enrolado no pescoço NÃO é perigoso!</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            O cordão umbilical é **elástico, maleável e escorregadio**. Durante a gestação os bebês se mexem muito e se enrolam e desenrolam. O cordão não enforca o bebê pois ele não respira pelo pescoço, mas sim pelo fluxo de sangue da placenta!
+                        </p>
+                    </div>
+
+                    <!-- Líquido Amniótico -->
+                    <div class="bg-sky-50 p-5 rounded-2xl border border-sky-200 space-y-2">
+                        <div class="w-8 h-8 rounded-full bg-sky-700 text-white flex items-center justify-center text-xs font-bold">2</div>
+                        <h3 class="font-bold text-sky-950 text-sm">Funções do Líquido Amniótico</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            • Protege contra impactos e traumatismos externos.<br>
+                            • Barreira de proteção contra infecções.<br>
+                            • Mantém a temperatura quentinha do bebê (termorregulação).<br>
+                            • Permite o desenvolvimento do pulmão, estômago e ossos do bebê.
+                        </p>
+                    </div>
+
+                    <!-- Tampão Mucoso -->
+                    <div class="bg-pink-50 p-5 rounded-2xl border border-pink-200 space-y-2">
+                        <div class="w-8 h-8 rounded-full bg-pink-700 text-white flex items-center justify-center text-xs font-bold">3</div>
+                        <h3 class="font-bold text-pink-950 text-sm">O que é o Tampão Mucoso?</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            É uma secreção gelatinosa espessa que protege a entrada do colo do útero. A sua saída (pode ter raias de sangue ou tom esbranquiçado/amarronzado) **NÃO significa que o parto vai acontecer na hora**. O corpo pode repor o tampão e o parto ainda levar dias ou semanas.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CONTRAÇÕES: TREINAMENTO VS PARTO -->
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-2xl border border-amber-200">
+                    <h3 class="text-base font-bold text-amber-950 font-heading mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-arrows-split-up-and-left text-amber-600"></i> Como Diferenciar Contrações de Treinamento vs. Contrações de Parto?
+                    </h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-amber-200">
+                            <span class="text-xs font-bold text-amber-800 uppercase tracking-wider block mb-1">Contrações de Treinamento (Braxton Hicks)</span>
+                            <ul class="text-xs text-gray-700 space-y-1">
+                                <li>• Apenas desconfortáveis, endurecem a barriga sem dor forte.</li>
+                                <li>• **Param** quando você muda de posição, descansa ou toma água.</li>
+                                <li>• Ritmo irregular e duração curta.</li>
+                                <li>• Intervalo maior que 5 minutos entre uma e outra.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-rose-50 p-4 rounded-xl border border-rose-200">
+                            <span class="text-xs font-bold text-rose-800 uppercase tracking-wider block mb-1">Contrações Verdadeiras de Parto</span>
+                            <ul class="text-xs text-gray-800 space-y-1">
+                                <li>• **Dolorosas** (vêm como cólicas fortes que vão aumentando).</li>
+                                <li>• **NÃO param** mesmo se mudar de posição ou andar.</li>
+                                <li>• Maior intensidade e duração mais longa.</li>
+                                <li>• **Ritmo regular**: vêm a cada 5 minutos ou menos por mais de 1 hora.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 6: AMAMENTAÇÃO ================= -->
+        <section id="sec-amamentacao" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-purple-100">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-person-breastfeeding"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-purple-950 font-heading">Amamentação: Amor e Nutrição em Cada Gota</h2>
+                        <p class="text-xs text-gray-500">O leite materno é o alimento mais completo do mundo. Exclusivo até os 6 meses de vida.</p>
+                    </div>
+                </div>
+
+                <!-- Benefits -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-purple-50 p-5 rounded-2xl border border-purple-200">
+                        <h3 class="font-bold text-purple-900 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-heart-pulse text-purple-600"></i> Benefícios para a Mãe
+                        </h3>
+                        <ul class="text-xs text-gray-700 space-y-1.5 font-medium">
+                            <li>✔ Facilita o vínculo afetivo profundo entre mãe e bebê.</li>
+                            <li>✔ Diminui o sangramento no pós-parto e ajuda o útero a voltar ao tamanho normal.</li>
+                            <li>✔ Reduz expressivamente a incidência de câncer de mama, ovário e endométrio.</li>
+                            <li>✔ Ajuda na prevenção da anemia materna.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-pink-50 p-5 rounded-2xl border border-pink-200">
+                        <h3 class="font-bold text-pink-900 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-cat text-pink-600"></i> Benefícios para o Bebê
+                        </h3>
+                        <ul class="text-xs text-gray-700 space-y-1.5 font-medium">
+                            <li>✔ Primeira vacina natural: forma e fortalece o sistema imunológico.</li>
+                            <li>✔ Protege contra infecções respiratórias (pneumonia) e diarreias.</li>
+                            <li>✔ Melhora o desenvolvimento motor, cognitivo e fala.</li>
+                            <li>✔ Previne alergias, obesidade futura, anemia e problemas dentários.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- PEGA CORRETA VS PEGA INCORRETA -->
+                <h3 class="text-lg font-bold text-purple-950 font-heading mb-3">Técnica da Pega Correta no Peito</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-emerald-50 p-5 rounded-2xl border-2 border-emerald-300">
+                        <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
+                            <i class="fa-solid fa-check"></i> Pega Correta (Sem Dor)
+                        </span>
+                        <ul class="text-xs text-emerald-950 space-y-2 font-medium">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+                                <span><strong>Boca de Peixinho:</strong> A boca fica bem aberta com os lábios virados para fora.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+                                <span><strong>Abocanha a Aréola:</strong> O bebê pega quase toda a parte escura (aréola) e não apenas o bico.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+                                <span><strong>Posição do Rosto:</strong> Queixo encostado no peito da mãe, nariz livre para respirar.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+                                <span><strong>Sensação:</strong> Não dói e não machuca a mama. Bebê engole com calma e se satisfaz.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-rose-50 p-5 rounded-2xl border-2 border-rose-300">
+                        <span class="bg-rose-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
+                            <i class="fa-solid fa-xmark"></i> Pega Incorreta (Ajustar)
+                        </span>
+                        <ul class="text-xs text-rose-950 space-y-2 font-medium">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+                                <span><strong>Apenas o Mamilo:</strong> O bebê pega só a pontinha do bico, causando dor, fissuras e rachaduras.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+                                <span><strong>Lábios para Dentro:</strong> Lábios murchos e queixo longe da mama.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+                                <span><strong>Barulho de Estalo:</strong> O bebê faz barulhos de estalos com a língua e cansa sem extrair leite suficiente.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+                                <span><strong>Ação:</strong> Interrompa a sucção colocando a pontinha do seu dedo mínimo no canto da boca do bebê e reaproxime.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 7: DIREITOS & EQUIDADE RACIAL ================= -->
+        <section id="sec-direitos" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-sky-100">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <h2 class="text-xl font-bold text-purple-950 font-heading flex items-center gap-2">
+                        <i class="fa-solid fa-scale-balanced text-sky-600"></i> Seus Direitos no SUS e Equidade na Saúde
+                    </h2>
+                    <span class="bg-sky-100 text-sky-900 text-xs font-bold px-3 py-1 rounded-full">Proteção Social</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Acompanhante no Parto -->
+                    <div class="bg-sky-50/70 p-5 rounded-2xl border border-sky-200 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-sky-700 text-white flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-user-group"></i>
+                        </div>
+                        <h3 class="font-bold text-sky-950 text-base">Lei do Acompanhante (Lei Federal 11.108/2005)</h3>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            Você tem o **direito garantido por lei** de ter 1 acompanhante da sua livre escolha durante todo o trabalho de parto, parto e pós-parto imediato em qualquer maternidade do SUS. Ninguém pode proibir!
+                        </p>
+                    </div>
+
+                    <!-- RioCard Gestante -->
+                    <div class="bg-purple-50/70 p-5 rounded-2xl border border-purple-200 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-purple-700 text-white flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-bus"></i>
+                        </div>
+                        <h3 class="font-bold text-purple-950 text-base">Passe Livre Gestante (RioCard / Transporte RJ)</h3>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            Gestantes cadastradas no pré-natal do SUS na Cidade do Rio de Janeiro têm direito à gratuidade no transporte público para realização de consultas e exames pré-natais. Solicite o encaminhamento na CF Carlos Nery.
+                        </p>
+                    </div>
+
+                    <!-- Benefício Bolsa Família / Benefício Primeira Infância -->
+                    <div class="bg-amber-50/70 p-5 rounded-2xl border border-amber-200 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                        </div>
+                        <h3 class="font-bold text-amber-950 text-base">Benefício Variável à Gestante (Bolsa Família)</h3>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            Mães cadastradas no CadÚnico recebem um adicional financeiro mensal na gestação. O cumprimento das consultas de pré-natal na Clínica da Família é a condicionalidade de saúde para manter o benefício.
+                        </p>
+                    </div>
+
+                    <!-- Enfrentamento ao Racismo Obstétrico -->
+                    <div class="bg-rose-50/70 p-5 rounded-2xl border border-rose-200 space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-rose-700 text-white flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                        </div>
+                        <h3 class="font-bold text-rose-950 text-base">Direito ao Parto Humanizado e Sem Dor</h3>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            Mulheres negras e pardas têm o direito inalienável a **receber anestesia/analgesia de parto**, tratamento respeitoso, sem gritos ou procedimentos desnecessários (como episiotomia sem consentimento). Exija ser ouvida!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GERADOR DE PLANO DE PARTO -->
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-gray-100 space-y-4">
+                <h3 class="text-lg font-bold text-purple-950 font-heading flex items-center gap-2">
+                    <i class="fa-solid fa-file-signature text-purple-600"></i> Monte Seu Plano de Parto Rápido
+                </h3>
+                <p class="text-xs text-gray-600">
+                    O Plano de Parto é um documento oficial onde você expressa seus desejos para o nascimento do seu bebê na maternidade.
+                </p>
+
+                <div id="form-plano-parto" class="space-y-3 bg-purple-50/50 p-4 rounded-2xl border border-purple-100 text-xs">
+                    <div>
+                        <label class="font-bold text-purple-900 block mb-1">Seu Nome Completo:</label>
+                        <input type="text" id="pp-nome" placeholder="Ex: Ana Maria da Silva" class="w-full p-2.5 bg-white border border-purple-200 rounded-xl">
+                    </div>
+
+                    <div>
+                        <label class="font-bold text-purple-900 block mb-1">Nome do(a) Acompanhante:</label>
+                        <input type="text" id="pp-acompanhante" placeholder="Ex: Carlos (Marido) ou Maria (Mãe)" class="w-full p-2.5 bg-white border border-purple-200 rounded-xl">
+                    </div>
+
+                    <div class="space-y-1.5 font-medium text-gray-800">
+                        <label class="font-bold text-purple-900 block">Desejos para o Trabalho de Parto:</label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="pp-movimento" checked class="rounded text-purple-600"> Quero liberdade para caminhar e mudar de posição.
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="pp-alivio" checked class="rounded text-purple-600"> Quero métodos naturais de alívio da dor (chuveiro morno, bola, massagem).
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="pp-alimentacao" checked class="rounded text-purple-600"> Desejo ingerir água e líquidos leves durante o trabalho de parto.
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="pp-pele" checked class="rounded text-purple-600"> Desejo contato pele a pele imediato com meu bebê após o nascimento.
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="pp-amamentacao" checked class="rounded text-purple-600"> Quero amamentar na primeira hora de vida (Hora de Ouro).
+                        </label>
+                    </div>
+
+                    <button onclick="gerarEImprimirPlano()" class="w-full bg-purple-700 hover:bg-purple-800 text-white font-bold py-3 px-4 rounded-xl shadow transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-print"></i> Salvar / Imprimir Meu Plano de Parto
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 8: SINAIS DE ALERTA & EMERGÊNCIA ================= -->
+        <section id="sec-emergencia" class="tab-content hidden space-y-6">
+            <!-- ALERTA VERMELHO: PRÉ-ECLÂMPSIA E PERIGOS -->
+            <div class="bg-rose-600 text-white rounded-3xl p-6 sm:p-8 card-shadow pulse-alert">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 rounded-2xl bg-white text-rose-600 flex items-center justify-center font-bold text-2xl shadow">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold font-heading">Sinais de Alerta Importantes!</h2>
+                        <p class="text-rose-100 text-xs sm:text-sm">Se você sentir qualquer um desses sintomas, procure IMEDIATAMENTE a Maternidade mais próxima ou a CF Carlos Nery!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Sinais de Pré-Eclâmpsia (Pressão Alta na Gestação) -->
+                <div class="bg-white rounded-3xl p-6 card-shadow border-2 border-rose-200">
+                    <h3 class="text-lg font-bold text-rose-950 font-heading mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-heart-crack text-rose-600"></i> Sinais de Pré-Eclâmpsia (Pressão Alta)
+                    </h3>
+                    <ul class="text-xs text-gray-800 space-y-2.5 font-medium">
+                        <li class="p-2.5 bg-rose-50 rounded-xl flex items-center gap-2">
+                            <i class="fa-solid fa-head-side-virus text-rose-600 text-base"></i>
+                            <span><strong>Dor de cabeça forte</strong> na região da nuca que não passa com remédio simples.</span>
+                        </li>
+                        <li class="p-2.5 bg-rose-50 rounded-xl flex items-center gap-2">
+                            <i class="fa-solid fa-eye-low-vision text-rose-600 text-base"></i>
+                            <span><strong>Visão embaçada</strong>, enxergando pontinhos brilhantes ou luzes piscando.</span>
+                        </li>
+                        <li class="p-2.5 bg-rose-50 rounded-xl flex items-center gap-2">
+                            <i class="fa-solid fa-toilet-portable text-rose-600 text-base"></i>
+                            <span><strong>Inchaço repentino e forte</strong> no rosto, mãos e pernas que não melhora ao acordar.</span>
+                        </li>
+                        <li class="p-2.5 bg-rose-50 rounded-xl flex items-center gap-2">
+                            <i class="fa-solid fa-stomach text-rose-600 text-base"></i>
+                            <span><strong>Dor forte na "boca do estômago"</strong> ou do lado direito da barriga + tontura/vômito.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Sinais de Sangramento / Perda de Líquido -->
+                <div class="bg-white rounded-3xl p-6 card-shadow border-2 border-amber-200">
+                    <h3 class="text-lg font-bold text-amber-950 font-heading mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-droplet text-amber-600"></i> Outros Sinais de Perigo Imediato
+                    </h3>
+                    <ul class="text-xs text-gray-800 space-y-2.5 font-medium">
+                        <li class="p-2.5 bg-amber-50 rounded-xl flex items-center gap-2">
+                            <i class="fa-solid fa-droplet text-red-600 text-base"></i>
+                            <span><strong>Sangramento vaginal</strong> (mesmo em pequena quantidade ou sem dor).</span>
+                        </li>
+                        <li class="p-2.5 bg-amber-50 rounded-xl flex items-center gap-2">
+                            <i class="fa-solid fa-water text-sky-600 text-base"></i>
+                            <span><strong>Perda de líquido transparente ou esverdeado</strong> escorrendo pelas pernas (bolsa rota).</span>
+                        </li>
+                        <li class="p-2.5 bg-amber-50 rounded-xl flex items-center gap-2">
+                            <i class="fa-solid fa-baby text-purple-600 text-base"></i>
+                            <span><strong>Parada dos movimentos do bebê:</strong> Se o bebê parar de mexer por mais de 6 a 12 horas.</span>
+                        </li>
+                        <li class="p-2.5 bg-amber-50 rounded-xl flex items-center gap-2">
+                            <i class="fa-solid fa-temperature-arrow-up text-amber-600 text-base"></i>
+                            <span><strong>Febre acima de 37.8ºC</strong>, calafrios ou dor intensa ao urinar.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CONTATOS DE EMERGÊNCIA & MATERNIDADES REFERÊNCIA RJ -->
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-gray-100">
+                <h3 class="text-lg font-bold text-purple-950 font-heading mb-3">Telefones e Locais de Atendimento em Urgência</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <a href="tel:192" class="p-4 bg-rose-100 text-rose-900 rounded-2xl font-bold flex items-center justify-between hover:bg-rose-200 transition">
+                        <div>
+                            <span class="block text-xs uppercase text-rose-700">Emergência Médica</span>
+                            <span class="text-xl">SAMU 192</span>
+                        </div>
+                        <i class="fa-solid fa-phone-flip text-2xl"></i>
+                    </a>
+
+                    <a href="tel:136" class="p-4 bg-purple-100 text-purple-900 rounded-2xl font-bold flex items-center justify-between hover:bg-purple-200 transition">
+                        <div>
+                            <span class="block text-xs uppercase text-purple-700">Ouvidoria SUS</span>
+                            <span class="text-xl">Disque 136</span>
+                        </div>
+                        <i class="fa-solid fa-headset text-2xl"></i>
+                    </a>
+
+                    <div class="p-4 bg-emerald-100 text-emerald-900 rounded-2xl font-bold">
+                        <span class="block text-xs uppercase text-emerald-700">Sua Unidade Básica</span>
+                        <span class="text-sm">CF Carlos Nery</span>
+                        <p class="text-[10px] font-normal text-emerald-800">Av. Brás de Pina / Cordovil - RJ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 9: ASSISTENTE VIRTUAL IA ================= -->
+        <section id="sec-assistente" class="tab-content hidden space-y-4">
+            <div class="bg-white rounded-3xl p-6 card-shadow border border-purple-100 flex flex-col h-[600px]">
+                <!-- Header -->
+                <div class="flex items-center space-x-3 pb-4 border-b border-gray-100 flex-shrink-0">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-400 to-rose-500 text-purple-950 flex items-center justify-center font-bold text-xl shadow">
+                        <i class="fa-solid fa-user-nurse"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-purple-950 font-heading">Enfermeira Nery • Assistente Virtual de Saúde</h2>
+                        <p class="text-xs text-gray-500">Tire suas dúvidas sobre vacinas (VSR), consultas, ultrassom, exames e sintomas do pré-natal.</p>
+                    </div>
+                </div>
+
+                <!-- Chat Box -->
+                <div id="chat-messages" class="flex-grow overflow-y-auto p-4 space-y-3 my-2 bg-purple-50/40 rounded-2xl border border-purple-100">
+                    <div class="flex items-start gap-2 max-w-[85%]">
+                        <div class="w-8 h-8 rounded-full bg-amber-400 text-purple-950 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-1">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-purple-100 text-xs sm:text-sm text-gray-800 shadow-sm leading-relaxed">
+                            Olá, mamãe! Sou a <strong>Enfermeira Nery</strong>. Como posso te ajudar hoje? Pode me perguntar sobre a vacina VSR, ultrassom, contrações, alívio de azia, ou os exames do SUS!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Suggested Questions -->
+                <div class="flex gap-2 overflow-x-auto pb-2 flex-shrink-0 no-scrollbar">
+                    <button onclick="enviarPerguntaPronta('Como funciona a vacina VSR e para que serve?')" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-900 text-xs px-3 py-1.5 rounded-full font-medium whitespace-nowrap">
+                        💉 Vacina VSR?
+                    </button>
+                    <button onclick="enviarPerguntaPronta('Quais exames faço no 1º trimestre?')" class="bg-purple-100 hover:bg-purple-200 text-purple-900 text-xs px-3 py-1.5 rounded-full font-medium whitespace-nowrap">
+                        📋 Exames do 1º Trimestre?
+                    </button>
+                    <button onclick="enviarPerguntaPronta('Como sei se estou com dor de cabeça perigosa (pré-eclâmpsia)?')" class="bg-rose-100 hover:bg-rose-200 text-rose-900 text-xs px-3 py-1.5 rounded-full font-medium whitespace-nowrap">
+                        ⚠️ Sinais de Pressão Alta?
+                    </button>
+                    <button onclick="enviarPerguntaPronta('Como funciona a pega correta na amamentação?')" class="bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs px-3 py-1.5 rounded-full font-medium whitespace-nowrap">
+                        🍼 Pega na Amamentação?
+                    </button>
+                </div>
+
+                <!-- Input Box -->
+                <div class="flex items-center gap-2 pt-2 border-t border-gray-100 flex-shrink-0">
+                    <input type="text" id="chat-input" placeholder="Digite sua dúvida para a Enfermeira Nery..." onkeypress="handleKeyPress(event)" class="flex-grow bg-purple-50/70 border border-purple-200 rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-600">
+                    <button onclick="enviarMensagemChat()" class="bg-purple-700 hover:bg-purple-800 text-white p-3 rounded-xl shadow transition">
+                        <i class="fa-solid fa-paper-plane text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-purple-950 text-purple-200 text-xs py-6 mt-10 border-t border-purple-800">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
+            <p class="font-semibold text-purple-100">
+                Clínica da Família Carlos Nery • AP 3.1 • Prefeitura da Cidade do Rio de Janeiro
+            </p>
+            <p class="text-purple-300 max-w-2xl mx-auto">
+                Iniciativa de Acolhimento Pré-Natal Humanizado. Foco em equidade racial, prevenção de agravos e garantia dos direitos da gestante e do recém-nascido.
+            </p>
+            <p class="text-[10px] text-purple-400 pt-2">
+                Este aplicativo é um guia informativo complementar. Nunca substitua suas consultas médicas e de enfermagem presenciais.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const apiKey = ""; // API Key handled dynamically in runtime
+
+        // Navigation Switch
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active', 'bg-purple-800', 'text-white'));
+
+            const selectedSec = document.getElementById(`sec-${tabName}`);
+            if (selectedSec) {
+                selectedSec.classList.remove('hidden');
+            }
+
+            const selectedBtn = document.getElementById(`tab-${tabName}`);
+            if (selectedBtn) {
+                selectedBtn.classList.add('active', 'bg-purple-800', 'text-white');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Speech Synthesis Audio Guide for Low Literacy Accessibility
+        function toggleAudioGuide(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop current
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'pt-BR';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('O seu navegador não suporta a funcionalidade de leitura por áudio.');
+            }
+        }
+
+        function calcularGestacao() {
+            const dumInput = document.getElementById('input-dum').value;
+            const resContainer = document.getElementById('resultado-ig');
+
+            if (!dumInput) {
+                resContainer.innerHTML = `
+                    <div class="bg-rose-500/30 text-rose-100 p-4 rounded-xl text-xs font-semibold">
+                        Por favor, selecione a data da sua última menstruação (DUM).
+                    </div>
+                `;
+                return;
+            }
+
+            const dumDate = new Date(dumInput);
+            const hoje = new Date();
+
+            if (dumDate > hoje) {
+                resContainer.innerHTML = `
+                    <div class="bg-rose-500/30 text-rose-100 p-4 rounded-xl text-xs font-semibold">
+                        A data informada não pode ser no futuro!
+                    </div>
+                `;
+                return;
+            }
+
+            // Days difference
+            const diffTime = Math.abs(hoje - dumDate);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            const semanas = Math.floor(diffDays / 7);
+            const diasRestantes = diffDays % 7;
+
+            // DPP = DUM + 280 days
+            const dppDate = new Date(dumDate);
+            dppDate.setDate(dppDate.getDate() + 280);
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const dppFormatada = dppDate.toLocaleDateString('pt-BR', options);
+
+            let trimestre = "1º Trimestre";
+            let dicaVacina = "Consulte as vacinas recomendadas do início da gestação!";
+
+            if (semanas >= 14 && semanas <= 26) {
+                trimestre = "2º Trimestre";
+                dicaVacina = "Momento ideal para vacina dTpa e avaliar a aplicação da Vacina VSR!";
+            } else if (semanas >= 27) {
+                trimestre = "3º Trimestre";
+                dicaVacina = "Fique atenta ao teste de Streptococcus B (35-37 sem) e sinais de alerta da pré-eclâmpsia!";
+            }
+
+            resContainer.innerHTML = `
+                <div class="space-y-3">
+                    <span class="bg-amber-400 text-purple-950 font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider inline-block">
+                        ${trimestre}
+                    </span>
+
+                    <div>
+                        <h3 class="text-3xl font-extrabold text-white font-heading">
+                            ${semanas} Semanas ${diasRestantes > 0 ? `e ${diasRestantes} dias` : ''}
+                        </h3>
+                        <p class="text-purple-200 text-xs mt-1">Sua Idade Gestacional Atual</p>
+                    </div>
+
+                    <div class="bg-white/10 p-3 rounded-xl border border-white/20 text-xs text-purple-100">
+                        <i class="fa-solid fa-calendar-star text-amber-300"></i>
+                        <strong>Data Provável do Parto (DPP):</strong> ${dppFormatada}
+                    </div>
+
+                    <p class="text-xs text-amber-200 font-medium bg-purple-950/40 p-2.5 rounded-lg border border-purple-800">
+                        💡 <strong>Orientação CF Nery:</strong> ${dicaVacina}
+                    </p>
+                </div>
+            `;
+        }
+
+        function gerarEImprimirPlano() {
+            const nome = document.getElementById('pp-nome').value || 'Gestante';
+            const acompanhante = document.getElementById('pp-acompanhante').value || 'Não informado';
+
+            const mov = document.getElementById('pp-movimento').checked ? '• Desejo liberdade de movimentação durante o trabalho de parto.\n' : '';
+            const alivio = document.getElementById('pp-alivio').checked ? '• Solicito métodos não farmacológicos de alívio da dor (chuveiro morno, bola, massagens).\n' : '';
+            const ali = document.getElementById('pp-alimentacao').checked ? '• Desejo ingestão hídrica/líquidos leves.\n' : '';
+            const pele = document.getElementById('pp-pele').checked ? '• Exijo o contato pele a pele imediato com o bebê após o nascimento.\n' : '';
+            const amam = document.getElementById('pp-amamentacao').checked ? '• Quero amamentar na primeira hora de vida (Hora de Ouro).\n' : '';
+
+            const textoPlano = `
+==================================================
+PLANO DE PARTO HUMANIZADO - SUS
+Clínica da Família Carlos Nery
+--------------------------------------------------
+Nome da Gestante: ${nome}
+Acompanhante Escolhido(a) (Lei 11.108/05): ${acompanhante}
+
+MEUS PREFERÊNCIAS PARA O PARTO:
+${mov}${alivio}${ali}${pele}${amam}
+DIREITOS ASSEGURADOS:
+- Respeito à equidade de gênero e raça sem violência obstétrica.
+- Direito à anestesia se solicitada e indicação médica.
+==================================================
+            `;
+
+            const blob = new Blob([textoPlano], { type: 'text/plain;charset=utf-8' });
+            const windowUrl = URL.createObjectURL(blob);
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`<pre style="font-family: sans-serif; font-size: 14px; padding: 20px; line-height: 1.6;">${textoPlano}</pre>`);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        async function enviarMensagemChat() {
+            const inputEl = document.getElementById('chat-input');
+            const userMsg = inputEl.value.trim();
+            if (!userMsg) return;
+
+            const chatContainer = document.getElementById('chat-messages');
+
+            // Render User Message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'flex items-start gap-2 justify-end max-w-[85%] ml-auto';
+            userDiv.innerHTML = `
+                <div class="bg-purple-700 text-white p-3.5 rounded-2xl rounded-tr-none text-xs sm:text-sm shadow-sm leading-relaxed">
+                    ${escapeHtml(userMsg)}
+                </div>
+            `;
+            chatContainer.appendChild(userDiv);
+
+            inputEl.value = '';
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // Render Loading Spinner
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'flex items-start gap-2 max-w-[85%]';
+            loadingDiv.id = 'loading-nurse';
+            loadingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-amber-400 text-purple-950 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-1">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                </div>
+                <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-purple-100 text-xs text-gray-500 italic shadow-sm">
+                    Enfermeira Nery está consultando as orientações de saúde...
+                </div>
+            `;
+            chatContainer.appendChild(loadingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // Call Gemini 3 Flash API
+            try {
+                const systemInstruction = `
+                    Você é a Enfermeira Nery, uma enfermeira obstetra carinhosa, empática, acolhedora e especialista do SUS na Clínica da Família Carlos Nery (Rio de Janeiro).
+                    Seu foco é atender gestantes, a maioria negras e pardas em situação de vulnerabilidade social.
+                    Fale em linguagem simples, direta, encorajadora, sem jargões difíceis.
+                    Destaque sempre a relevância das vacinas (incluindo a Vacina VSR contra bronquiolite no bebê, dTpa, influenza), o pré-natal regular na CF Carlos Nery, os exames (como Streptococcus B, Eletroforese de Hemoglobina), suplementos (Sulfato Ferroso, Ácido Fólico, Cálcio), amamentação, combate ao racismo na saúde e sinais de alerta de pré-eclâmpsia.
+                    Se houver sinais graves (dor de cabeça forte na nuca, visão embaralhada, sangramento), mande ir imediatamente ao serviço de urgência.
+                `;
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: userMsg }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemInstruction }]
+                    }
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                const nurseReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Desculpe, mamãe! Tive um pequeno imprevisto técnico. Por favor, consulte sua enfermeira no pré-natal da CF Carlos Nery.";
+
+                // Remove Loading
+                const loadingEl = document.getElementById('loading-nurse');
+                if (loadingEl) loadingEl.remove();
+
+                // Render Nurse Message
+                const nurseDiv = document.createElement('div');
+                nurseDiv.className = 'flex items-start gap-2 max-w-[85%]';
+                nurseDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-amber-400 text-purple-950 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-purple-100 text-xs sm:text-sm text-gray-800 shadow-sm leading-relaxed space-y-2">
+                        ${formatNurseText(nurseReply)}
+                    </div>
+                `;
+                chatContainer.appendChild(nurseDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            } catch (err) {
+                console.error("Erro na API Gemini:", err);
+                const loadingEl = document.getElementById('loading-nurse');
+                if (loadingEl) loadingEl.remove();
+
+                const errDiv = document.createElement('div');
+                errDiv.className = 'flex items-start gap-2 max-w-[85%]';
+                errDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-rose-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-1">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="bg-rose-50 p-3.5 rounded-2xl rounded-tl-none border border-rose-200 text-xs text-rose-900 shadow-sm">
+                        Não consegui me conectar no momento. Lembre-se que você pode tirar todas as suas dúvidas na sua consulta na Clínica da Família Carlos Nery!
+                    </div>
+                `;
+                chatContainer.appendChild(errDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        }
+
+        function enviarPerguntaPronta(pergunta) {
+            document.getElementById('chat-input').value = pergunta;
+            enviarMensagemChat();
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                enviarMensagemChat();
+            }
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function formatNurseText(text) {
+            // Replace markdown bold with html bold for clear presentation
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        }
+    </script>
+</body>
+</html>
